@@ -1,7 +1,9 @@
 {
     "name": "bluse/mi-push-server",
     "description": "xiaomi push server v2.2.16",
+    "keywords": ["mipush", "xmpush"],
     "license": "MIT",
+    "homepage": "https://github.com/blusewang/MiPushServer",
     "authors": [
         {
             "name": "bluse",
