@@ -1,0 +1,21 @@
+{
+    "name": "bluse/mi-push-server",
+    "description": "xiaomi push server v2.2.16",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "bluse",
+            "email": "wangjunfeng2000@126.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.6.4"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "xmpush\\": "xmpush/"
+        }
+    }
+}
