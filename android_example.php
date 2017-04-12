@@ -9,7 +9,8 @@ use xmpush\Feedback;
 use xmpush\DevTools;
 use xmpush\Subscription;
 use xmpush\TargetedMessage;
-include_once(dirname(__FILE__).'/autoload.php');
+
+include_once(dirname(__FILE__) . '/autoload.php');
 
 $secret = 'your app secret';
 $package = 'your app packagename';
@@ -55,7 +56,7 @@ $targetMessage2->setMessage($message2);
 $targetMessageList = array($targetMessage, $targetMessage2);
 //print_r($sender->multiSend($targetMessageList,TargetedMessage::TARGET_TYPE_ALIAS)->getRaw());
 
-print_r($sender->sendToAliases($message1,$aliasList)->getRaw());
+print_r($sender->sendToAliases($message1, $aliasList)->getRaw());
 //$stats = new Stats();
 //$startDate = '20140301';
 //$endDate = '20140312';

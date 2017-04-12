@@ -4,7 +4,8 @@ use xmpush\Sender;
 use xmpush\Constants;
 use xmpush\Stats;
 use xmpush\Tracer;
-include_once(dirname(__FILE__).'/autoload.php');
+
+include_once(dirname(__FILE__) . '/autoload.php');
 
 $secret = 'your app secret';
 $bundleId = 'your app bundleId';
@@ -24,6 +25,6 @@ $message->extra('payload', $payload);
 $message->build();
 
 $sender = new Sender();
-print_r($sender->sendToAliases($message,$aliasList)->getRaw());
+print_r($sender->sendToAliases($message, $aliasList)->getRaw());
 
 ?>

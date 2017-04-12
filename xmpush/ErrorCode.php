@@ -9,7 +9,8 @@
 namespace xmpush;
 
 class ErrorCode {
-	const Success = 0;
+    const Success = 0;
+    const NETWORK_ERROR_TIMEOUT = -1;
 }
 
 ?>
