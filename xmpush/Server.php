@@ -66,6 +66,13 @@ class Server {
         return $this->priority;
     }
 
+    /**
+     * @param int $priority
+     */
+    public function setPriority($priority) {
+        $this->priority = $priority;
+    }
+
     public function incrPriority() {
         $this->changePriority(true, $this->incrStep);
     }

@@ -82,7 +82,7 @@ class Constants {
     const X_PUSH_HOST_LIST = "X-PUSH-HOST-LIST";
     const HOST_RESPONSE_EXPECT_TIME = 5; // 响应时间低于这个值，host降权
     const X_PUSH_SDK_VERSION = "X-PUSH-SDK-VERSION";
-    const SDK_VERSION = "PHP_SDK_V2.2.18";
+    const SDK_VERSION = "PHP_SDK_V2.2.19";
 
     public static function setPackage($package) {
         self::$packageName = $package;
