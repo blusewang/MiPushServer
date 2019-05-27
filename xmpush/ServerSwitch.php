@@ -16,10 +16,12 @@ class ServerSwitch {
      * @var array Server
      */
     private $servers;
-    private $feedback;
+    private $apiRegionList;
+    private $feedbackRegionList;
     private $sandbox;
     private $specified;
     private $emq;
+    private $messageVip;
     private $defaultServer;
     private $inited = false;
     private $lastRefreshTime;
@@ -92,7 +94,7 @@ class ServerSwitch {
      * @param PushRequestPath $requestPath
      * @return Server
      */
-    public function &selectServer($requestPath) {
+    public function &selectServer($requestPath, $region, $isVip) {
         if (isset(Constants::$host)) {
             $this->specified->setHost(Constants::$host);
             return $this->specified;
@@ -100,14 +102,27 @@ class ServerSwitch {
         if (Constants::$sandbox) {
             return $this->sandbox;
         }
-
         switch ($requestPath->getRequestType()) {
             case PushRequestType::FEEDBACK:
-                return $this->feedback;
+                switch ($region) {
+                    case Region::Other:
+                        return $this->feedbackRegionList[$region];
+                    default:
+                        return $this->feedbackRegionList[Region::China];
+
+                }
             case PushRequestType::EMQ:
                 return $this->emq;
             default:
-                return $this->selectMsgServer();
+                switch ($region) {
+                    case Region::Other:
+                        return $this->apiRegionList[$region];
+                    default:
+                        if ($isVip) {
+                            return $this->messageVip;
+                        }
+                        return $this->selectMsgServer();
+                }
         }
 
     }
@@ -140,12 +155,22 @@ class ServerSwitch {
      * 构造函数私有，不允许在外部实例化
      */
     private function __construct() {
-        $this->feedback = new Server(Constants::HOST_PRODUCTION_FEEDBACK, 100, 100, 0, 0);
         $this->sandbox = new Server(Constants::HOST_SANDBOX, 100, 100, 0, 0);
         $this->specified = new Server(Constants::$host, 100, 100, 0, 0);
         $this->emq = new Server(Constants::HOST_EMQ, 100, 100, 0, 0);
         $this->defaultServer = new Server(Constants::HOST_PRODUCTION, 1, 90, 10, 5);
         $this->lastRefreshTime = $this->currentTimeMillis();
+        $hostList = Region::getFeedbackHostList();
+        $this->feedbackRegionList = array();
+        foreach ($hostList as $region => $host) {
+            $this->feedbackRegionList[$region] = new Server($host, 100, 100, 0, 0);
+        }
+        $hostList = Region::getApiHostList();
+        $this->apiRegionList = array();
+        foreach ($hostList as $region => $host) {
+            $this->apiRegionList[$region] = new Server($host, 100, 100, 0, 0);
+        }
+        $this->messageVip = new Server(Constants::HOST_VIP, 100, 100, 0, 0);
     }
 
     /**

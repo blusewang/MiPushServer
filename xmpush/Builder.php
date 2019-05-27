@@ -16,6 +16,7 @@ class Builder extends Message {
     const webUri = 'web_uri';
     const flowControl = 'flow_control';
     const callback = 'callback';
+    const instantNotify = 'instant_notify';
 
     public function __construct() {
         $this->notify_id = 0;
@@ -63,8 +64,20 @@ class Builder extends Message {
         $this->time_to_send = $timeToSend;
     }
 
+    public function instantNotify($isInstantNotify) {
+        if ($isInstantNotify) {
+            $this->extra(self::instantNotify, "1");
+        } else {
+            unset($this->extra[self::instantNotify]);
+        }
+    }
+
     public function notifyId($notifyId) {
         $this->notify_id = $notifyId;
+    }
+
+    public function hybridPath($value) {
+        $this->extra[self::HYBRID_PATH] = $value;
     }
 
     public function extra($key, $value) {

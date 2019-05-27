@@ -10,7 +10,6 @@ namespace xmpush;
 
 
 class Constants {
-    public static $domain = 'https://api.xmpush.xiaomi.com';
     public static $comma = ',';
     public static $multi_topic_split = ';$;';
     public static $packageName = '';
@@ -74,15 +73,35 @@ class Constants {
      */
     const HOST_EMQ = "emq.xmpush.xiaomi.com";
     const HOST_SANDBOX = "sandbox.xmpush.xiaomi.com";
+
+    /**
+     * 国内机房相关域名
+     */
     const HOST_PRODUCTION = "api.xmpush.xiaomi.com";
-    const HOST_PRODUCTION_B1 = "lg.api.xmpush.xiaomi.com";
-    const HOST_PRODUCTION_B2 = "c3.api.xmpush.xiaomi.com";
     const HOST_PRODUCTION_FEEDBACK = "feedback.xmpush.xiaomi.com";
+
+    /**
+     * 海外机房相关域名
+     */
+    const HOST_GLOBAL_PRODUCTION = "api.xmpush.global.xiaomi.com";
+    const HOST_GLOBAL_PRODUCTION_FEEDBACK = "feedback.xmpush.global.xiaomi.com";
+
+    /**
+     *  VIP域名
+     */
+    const HOST_VIP = "vip.api.xmpush.xiaomi.com";
 
     const X_PUSH_HOST_LIST = "X-PUSH-HOST-LIST";
     const HOST_RESPONSE_EXPECT_TIME = 5; // 响应时间低于这个值，host降权
     const X_PUSH_SDK_VERSION = "X-PUSH-SDK-VERSION";
-    const SDK_VERSION = "PHP_SDK_V2.2.19";
+    const SDK_VERSION = "PHP_SDK_V2.2.21";
+
+    const EXTRA_PARAM_NOTIFY_EFFECT = "notify_effect";
+    const NOTIFY_LAUNCHER_ACTIVITY = "1";
+    const NOTIFY_ACTIVITY = "2";
+    const NOTIFY_WEB = "3";
+    const EXTRA_PARAM_INTENT_URI = "intent_uri";
+    const EXTRA_PARAM_WEB_URI = "web_uri";
 
     public static function setPackage($package) {
         self::$packageName = $package;
@@ -97,13 +116,11 @@ class Constants {
     }
 
     public static function useOfficial() {
-        self::$domain = 'https://api.xmpush.xiaomi.com';
         self::$sandbox = false;
         self::$host = null;
     }
 
     public static function useSandbox() {
-        self::$domain = 'https://sandbox.xmpush.xiaomi.com';
         self::$sandbox = true;
         self::$host = null;
     }

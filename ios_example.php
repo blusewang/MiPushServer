@@ -4,6 +4,7 @@ use xmpush\Sender;
 use xmpush\Constants;
 use xmpush\Stats;
 use xmpush\Tracer;
+use xmpush\Region;
 
 include_once(dirname(__FILE__) . '/autoload.php');
 
@@ -25,6 +26,7 @@ $message->extra('payload', $payload);
 $message->build();
 
 $sender = new Sender();
+// $sender->setRegion(Region::China);// 支持海外
 print_r($sender->sendToAliases($message, $aliasList)->getRaw());
 
 ?>

@@ -32,8 +32,7 @@ class Stats extends HttpBase {
                 'restricted_package_name' => $this->package
             );
         }
-        $url = Constants::$domain . Constants::stats_url;
-        $result = $this->getResult($url, $fields, $retries);
+        $result = $this->getResult(PushRequestPath::V1_GET_MESSAGE_COUNTERS(), $fields, $retries);
         return $result;
     }
 

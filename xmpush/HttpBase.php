@@ -8,9 +8,35 @@ namespace xmpush;
 
 class HttpBase {
     private $appSecret;
+    private $region;
+    private $isVip;
+
+    /**
+     * @param string $appSecret
+     */
+    public function setAppSecret($appSecret) {
+        $this->appSecret = $appSecret;
+    }
+
+    /**
+     * @param int $region
+     */
+    public function setRegion($region) {
+        $this->region = $region;
+    }
+
+    /**
+     * @param bool $isVip
+     */
+    public function setIsVip($isVip) {
+        $this->isVip = $isVip;
+    }
+
 
     public function __construct() {
         $this->appSecret = Constants::$secret;
+        $this->region = Region::China;
+        $this->isVip = false;
     }
 
     //发送请求，获取result，带重试
@@ -60,7 +86,7 @@ class HttpBase {
     }
 
     private function httpRequest($requestPath, $fields, $method, $timeout = 10) {
-        $server = ServerSwitch::getInstance()->selectServer($requestPath);
+        $server = ServerSwitch::getInstance()->selectServer($requestPath, $this->region, $this->isVip);
         $url = $this->buildFullRequestURL($server, $requestPath);
 
         $headers = array('Authorization: key=' . $this->appSecret,
@@ -69,6 +95,7 @@ class HttpBase {
         if (Constants::$autoSwitchHost && ServerSwitch::getInstance()->needRefreshHostList()) {
             array_push($headers, Constants::X_PUSH_HOST_LIST . ': true');
         }
+        array_push($headers, "Expect:");
 
         // Open connection
         $ch = curl_init();

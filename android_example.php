@@ -9,6 +9,7 @@ use xmpush\Feedback;
 use xmpush\DevTools;
 use xmpush\Subscription;
 use xmpush\TargetedMessage;
+use xmpush\Region;
 
 include_once(dirname(__FILE__) . '/autoload.php');
 
@@ -25,6 +26,7 @@ $desc = '这是一条mipush推送消息';
 $payload = '{"test":1,"ok":"It\'s a string"}';
 
 $sender = new Sender();
+// $sender->setRegion(Region::China);// 支持海外
 
 // message1 演示自定义的点击行为
 $message1 = new Builder();

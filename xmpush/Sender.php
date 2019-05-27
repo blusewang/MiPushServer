@@ -141,6 +141,27 @@ class Sender extends HttpBase {
         return $this->postResult(PushRequestPath::V2_DELETE_SCHEDULE_JOB(), $fields, $retries);
     }
 
+
+    // Hybrid
+    public function sendHybridMessageByRegId(Message $message, $regIdList, $isDebug = false, $retries = 1) {
+        $fields = $message->getFields();
+        $this->hybridHandle($isDebug, $fields);
+        $jointRegIds = '';
+        foreach ($regIdList as $regId) {
+            if (isset($regId)) {
+                $jointRegIds .= $regId . Constants::$comma;
+            }
+        }
+        $fields['registration_id'] = $jointRegIds;
+        return $this->postResult(PushRequestPath::V2_REGID_MESSAGE(), $fields, $retries);
+    }
+
+    public function broadcastHybridAll(Message $message, $isDebug = false, $retries = 1) {
+        $fields = $message->getFields();
+        $this->hybridHandle($isDebug, $fields);
+        return $this->postResult(PushRequestPath::V2_BROADCAST_TO_ALL(), $fields, $retries);
+    }
+
     /**
      * @param $type
      * @return PushRequestPath
@@ -156,6 +177,19 @@ class Sender extends HttpBase {
             $requestPath = PushRequestPath::V2_SEND_MULTI_MESSAGE_WITH_REGID();
             return $requestPath;
         }
+    }
+
+    /**
+     * @param $isDebug
+     * @param $fields
+     * @return mixed
+     */
+    private function hybridHandle($isDebug, &$fields) {
+        $fields[Message::EXTRA_PREFIX . Message::HYBRID_PUSH_ACTION] = Message::HYBRID_ACTION_MESSAGE;
+        if ($isDebug) {
+            $fields[Message::EXTRA_PREFIX . Message::HYBRID_DEBUG] = "1";
+        }
+        return $fields;
     }
 }
 

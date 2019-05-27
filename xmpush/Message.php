@@ -11,6 +11,13 @@ namespace xmpush;
 
 class Message {
     const EXTRA_PREFIX = 'extra.';
+    const APS_PROPER_FIELDS_PREFIX = 'aps_proper_fields.';
+
+    const HYBRID_PUSH_ACTION = "push_server_action";
+    const HYBRID_ACTION_MESSAGE = "hybrid_message";
+    const HYBRID_DEBUG = "hybrid_debug";
+    const HYBRID_PATH = "hybrid_pn";
+
     protected $payload;                //消息内容
     protected $restricted_package_name;            //支持多包名
     protected $pass_through;            //是否透传给app(1 透传 0 通知栏信息)

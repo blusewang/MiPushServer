@@ -1,13 +1,13 @@
 {
     "name": "bluse/mi-push-server",
-    "description": "xiaomi push server v2.2.16",
+    "description": "xiaomi push server v2.2.21",
     "keywords": ["mipush", "xmpush"],
     "license": "MIT",
     "homepage": "https://github.com/blusewang/MiPushServer",
     "authors": [
         {
             "name": "bluse",
-            "email": "wangjunfeng2000@126.com"
+            "email": "dev.jf.wang@gmail.com"
         }
     ],
     "minimum-stability": "stable",
